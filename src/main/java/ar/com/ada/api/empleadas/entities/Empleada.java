@@ -96,7 +96,8 @@ public class Empleada {
 
     public enum EstadoEmpleadaEnum {
 
-        ACTIVO(1), INACTIVO(2);
+        ACTIVO(1),
+        BAJA(2);
 
         private final int value;
 
