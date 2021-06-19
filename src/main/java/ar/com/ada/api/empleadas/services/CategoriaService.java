@@ -21,5 +21,9 @@ public class CategoriaService {
     public List<Categoria> traerCategorias(){
         return repo.findAll();
     }
+
+    public Categoria buscarCategoria(Integer categoriaId){
+        Optional<Categoria> resultado repo.findById(categoriaId);
+    }
     
 }
