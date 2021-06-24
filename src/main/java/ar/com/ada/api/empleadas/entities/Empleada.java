@@ -70,14 +70,15 @@ public class Empleada {
         this.sueldo = sueldo;
     }
 
-    public int getEstado() {
-        return estado;
+    public EstadoEmpleadaEnum getEstado(){
+
+        return EstadoEmpleadaEnum.parse(this.estado);
     }
 
-    public void setEstado(int estado) {
-        this.estado = estado;
+    public void setEstado(EstadoEmpleadaEnum estado) {
+        this.estado = estado.getValue();
     }
-
+    
     public Date getFechaAlta() {
         return fechaAlta;
     }

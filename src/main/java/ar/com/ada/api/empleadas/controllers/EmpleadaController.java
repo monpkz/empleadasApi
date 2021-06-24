@@ -7,7 +7,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.*;
 
+import ar.com.ada.api.empleadas.entities.Categoria;
 import ar.com.ada.api.empleadas.entities.Empleada;
+import ar.com.ada.api.empleadas.entities.Empleada.EstadoEmpleadaEnum;
 import ar.com.ada.api.empleadas.models.request.InfoEmpleadaNueva;
 import ar.com.ada.api.empleadas.models.response.GenericResponse;
 import ar.com.ada.api.empleadas.services.CategoriaService;
@@ -29,28 +31,34 @@ public class EmpleadaController {
         return ResponseEntity.ok(lista);
     }
 
+ 
     @PostMapping("/empleados")
     public ResponseEntity<?> crearEmpleada(@RequestBody InfoEmpleadaNueva empleadaInfo) {
-        
         GenericResponse respuesta = new GenericResponse();
-        
+
         Empleada empleada = new Empleada();
         empleada.setNombre(empleadaInfo.nombre);
         empleada.setEdad(empleadaInfo.edad);
         empleada.setSueldo(empleadaInfo.sueldo);
-
-        Categoria categoria = categoriaService.
-        empleada.setCategoria(empleadaInfo.categoriaId);
-
+        empleada.setFechaAlta(new Date());
+        
+        Categoria categoria = categoriaService.buscarCategoria(empleadaInfo.categoriaId);
+        empleada.setCategoria(categoria);
+        empleada.setEstado(EstadoEmpleadaEnum.ACTIVO);
 
         service.crearEmpleada(empleada);
-        
         respuesta.isOk = true;
         respuesta.id = empleada.getEmpleadaId();
         respuesta.message = "La empleada fue creada con exito";
-        
         return ResponseEntity.ok(respuesta);
 
+    }
+
+    @GetMapping("/empleados/{id}")
+    public ResponseEntity<Empleada> getEmpleadaPorId(@PathVariable Integer id){
+        Empleada empleada = service.buscarEmpleada(id);
+
+        return ResponseEntity.ok(empleada);
     }
 
 }

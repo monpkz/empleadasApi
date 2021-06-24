@@ -22,5 +22,16 @@ public class EmpleadaService {
         return repo.findAll();
     }
 
+    public Empleada buscarEmpleada(Integer empleadaId){
+        Optional<Empleada> resultado = repo.findById(empleadaId);
 
+        if(resultado.isPresent())
+            return resultado.get();
+        
+        
+        return null;
+        
+    }
+
+   
 }
