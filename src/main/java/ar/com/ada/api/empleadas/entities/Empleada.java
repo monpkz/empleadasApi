@@ -17,10 +17,12 @@ public class Empleada {
     private String nombre;
     private Integer edad;
 
-    @ManyToOne //join columns van donde esta FK
+    @ManyToOne // join columns van donde esta FK
     @JoinColumn(name = "categoria_id", referencedColumnName = "categoria_id")
     private Categoria categoria;
     private BigDecimal sueldo;
+
+    @Column(name = "estado_id")
     private int estado;
 
     @Column(name = "fecha_alta")
@@ -70,7 +72,7 @@ public class Empleada {
         this.sueldo = sueldo;
     }
 
-    public EstadoEmpleadaEnum getEstado(){
+    public EstadoEmpleadaEnum getEstado() {
 
         return EstadoEmpleadaEnum.parse(this.estado);
     }
@@ -78,7 +80,7 @@ public class Empleada {
     public void setEstado(EstadoEmpleadaEnum estado) {
         this.estado = estado.getValue();
     }
-    
+
     public Date getFechaAlta() {
         return fechaAlta;
     }
@@ -97,8 +99,7 @@ public class Empleada {
 
     public enum EstadoEmpleadaEnum {
 
-        ACTIVO(1),
-        BAJA(2);
+        ACTIVO(1), BAJA(2);
 
         private final int value;
 

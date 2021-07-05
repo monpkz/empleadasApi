@@ -61,4 +61,46 @@ public class EmpleadaController {
         return ResponseEntity.ok(empleada);
     }
 
+    /*Detele/empleados/{id} --> Da de baja un empleado poniendo el campo estado en "baja"
+    y la fecha de baja que sea el dia actual. */
+    @DeleteMapping("/empleados/{id}")
+    public ResponseEntity<?> bajaEmpleada(@PathVariable Integer id){
+
+        service.bajaEmpleadaPorId(id);
+
+        GenericResponse respuesta = new GenericResponse();
+
+        respuesta.isOk = true;
+        respuesta.message = "La empleada fue dada de baja con exito";
+
+        return ResponseEntity.ok(respuesta);
+
+    }
+
+    //obtiene lista de empleados de una categoria
+    @GetMapping("/empleados/categoria/{catId}")
+    public ResponseEntity<List<Empleada>> obtenerEmpleadasPorCategoria(@PathVariable Integer catId){
+
+        List<Empleada> empleadas = service.traerEmpleadaPorCategoria(catId);
+        return ResponseEntity.ok(empleadas);
+    }
+
+    @PutMapping("/empleados/{id}/sueldos")
+    public ResponseEntity<GenericResponse> modificarSueldo(@PathVariable Integer id, @RequestBody SueldoNuevoEmpleada sueldoNuevoInfo){
+
+        //1) buscar la empleada
+        Empleada empleada = service.buscarEmpleada(id);
+        //2) setear su nuevo sueldo
+        empleada.setSueldo(sueldoNuevoInfo.sueldoNuevo);
+        //3) guardarlo  en la base de datos
+        service.guardar(empleada);
+
+        GenericResponse respuesta = new GenericResponse();
+
+        respuesta.isOk = true;
+        respuesta.message = "Sueldo actualizado";
+
+        return ResponseEntity.ok(respuesta);
+    }
+
 }
