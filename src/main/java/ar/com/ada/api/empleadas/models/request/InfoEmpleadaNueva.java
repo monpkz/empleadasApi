@@ -8,5 +8,5 @@ public class InfoEmpleadaNueva {
     public Integer edad;
     public BigDecimal sueldo;
     public Integer categoriaId;
-    
+
 }
