@@ -37,4 +37,19 @@ public class CategoriaController {
         return ResponseEntity.ok(service.traerCategorias()); // return entity con el valor esperado
 
     }
+
+    @DeleteMapping("/categorias/{id}")
+    public ResponseEntity<GenericResponse> eliminar(@PathVariable Integer id){
+
+        Categoria categoria = service.buscarCategoria(id);
+        service.eliminar(id);
+        GenericResponse respuesta = new GenericResponse();
+
+        respuesta.isOk = true;
+        respuesta.id = categoria.getCategoriaId();
+        respuesta.message = "Categoria eliminada con exito.";
+
+        return ResponseEntity.ok(respuesta);
+    }
 }
+
