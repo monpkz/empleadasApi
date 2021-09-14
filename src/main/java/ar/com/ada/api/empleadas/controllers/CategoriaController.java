@@ -51,5 +51,33 @@ public class CategoriaController {
 
         return ResponseEntity.ok(respuesta);
     }
+
+    //Patrones de diseño: strategy
+    @GetMapping("/categorias/sueldos-nuevos")
+    public ResponseEntity<List<Empleada>> calcularProximosSueldos() {
+        return ResponseEntity.ok(service.calcularProximosSueldos());
+    }
+
+    @GetMapping("/categorias/sueldos-actuales")
+    public ResponseEntity<List<Empleada>> obtenerSueldosActuales() {
+        return ResponseEntity.ok(service.obtenerSueldosActuales());
+    }
+
+    @GetMapping("/categorias/sin-empleadas")
+    public ResponseEntity<List<Categoria>> obtenerCategoriasSinEmpleadas() {
+        return ResponseEntity.ok(service.obtenerCategoriasSinEmpleadas());
+    }
+
+    @GetMapping("/categorias/minimo-sueldo")
+    public ResponseEntity<Categoria> obtenerCategoriaConMinimoSueldo() {
+        return ResponseEntity.ok(service.obtenerCategoriaConMinimoSueldo());
+    }
+
+    @GetMapping("/categorias/nombres")
+    public ResponseEntity<List<String>> obtenerNombresCategorias() {
+        return ResponseEntity.ok(service.obtenerNombresCategorias());
+    }
+
+
 }
 
